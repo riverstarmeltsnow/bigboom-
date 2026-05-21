@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>发新帖 - 留言板</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <a href="{{ url_for('index') }}" class="back-link">← 返回列表</a>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="flash-messages">
+            {% for category, msg in messages %}
+            <div class="flash {{ category }}">{{ msg }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        <h1>发新帖</h1>
+
+        <form action="{{ url_for('new_post') }}" method="POST" class="post-form">
+            <div class="form-group">
+                <input type="text" name="nickname" placeholder="你的昵称（留空=匿名）" maxlength="50"
+                       value="{{ nickname }}">
+            </div>
+            <div class="form-group">
+                <input type="text" name="title" placeholder="标题" maxlength="200" required
+                       value="{{ title }}">
+            </div>
+            <div class="form-group">
+                <textarea name="content" rows="8" placeholder="内容..." required>{{ content }}</textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">发布</button>
+        </form>
+    </div>
+</body>
+</html>

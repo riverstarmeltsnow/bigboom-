@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+venv/
+.venv/
+
+# C++ build
+*.obj
+*.exe
+*.pdb
+*.ilk
+
+# Output
+reports/output/
+projects/*/output/
+
+# IDE
+.vscode/
+.idea/
+
+# Claude Code
+.claude/
+
+# Environment
+.env
+*.env.local
+
+# OS
+Thumbs.db
+.DS_Store

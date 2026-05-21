@@ -1,0 +1,331 @@
+/* ====== 页面基础 ====== */
+.page {
+  min-height: 100vh;
+  transition: background 1s ease;
+  padding-bottom: 40rpx;
+}
+
+/* ====== 加载状态 ====== */
+.loading-mask {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 70vh;
+}
+
+.loading-spinner {
+  width: 60rpx;
+  height: 60rpx;
+  border: 4rpx solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading-text {
+  margin-top: 24rpx;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 28rpx;
+}
+
+/* ====== 错误状态 ====== */
+.error-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 70vh;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.error-icon {
+  font-size: 80rpx;
+  margin-bottom: 20rpx;
+}
+
+.error-text {
+  font-size: 28rpx;
+  text-align: center;
+  line-height: 1.6;
+  white-space: pre-line;
+}
+
+.retry-btn {
+  margin-top: 40rpx;
+  padding: 16rpx 60rpx;
+  border: 2rpx solid rgba(255, 255, 255, 0.8);
+  border-radius: 40rpx;
+  font-size: 28rpx;
+  color: #fff;
+}
+
+/* ====== 内容容器 ====== */
+.content {
+  padding: 0 30rpx;
+}
+
+/* ====== 顶部栏 ====== */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40rpx 0 20rpx;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+}
+
+.location-icon {
+  font-size: 32rpx;
+}
+
+.city-name {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #fff;
+}
+
+.header-right {
+  padding: 10rpx;
+}
+
+.setting-icon {
+  font-size: 36rpx;
+  opacity: 0.85;
+}
+
+/* ====== 刷新提示 ====== */
+.refresh-toast {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 24rpx;
+  padding: 10rpx 0;
+  animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10rpx); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ====== 卡片通用 ====== */
+.card {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 24rpx;
+  padding: 30rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.08);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  margin-bottom: 20rpx;
+}
+
+.card-icon {
+  font-size: 32rpx;
+}
+
+.card-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+/* ====== 天气卡片 ====== */
+.weather-card {
+  padding: 40rpx 30rpx;
+}
+
+.weather-main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40rpx;
+  margin-bottom: 36rpx;
+}
+
+.weather-icon-large {
+  font-size: 120rpx;
+  line-height: 1;
+}
+
+.weather-temp-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.weather-temp {
+  font-size: 100rpx;
+  font-weight: 200;
+  color: #fff;
+  line-height: 1;
+}
+
+.weather-desc {
+  font-size: 32rpx;
+  color: rgba(255, 255, 255, 0.85);
+  margin-top: 8rpx;
+}
+
+.weather-detail {
+  display: flex;
+  justify-content: space-around;
+  padding-top: 24rpx;
+  border-top: 1rpx solid rgba(255, 255, 255, 0.15);
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6rpx;
+}
+
+.detail-label {
+  font-size: 22rpx;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.detail-value {
+  font-size: 26rpx;
+  color: rgba(255, 255, 255, 0.95);
+  font-weight: 500;
+}
+
+/* ====== 提醒卡片 ====== */
+.reminder-content {
+  display: block;
+  font-size: 28rpx;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.8;
+  white-space: pre-line;
+}
+
+/* ====== 预报卡片 ====== */
+.forecast-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid rgba(255, 255, 255, 0.1);
+}
+
+.forecast-item:last-child {
+  border-bottom: none;
+}
+
+.forecast-left {
+  display: flex;
+  flex-direction: column;
+  min-width: 90rpx;
+}
+
+.forecast-day {
+  font-size: 28rpx;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.forecast-date {
+  font-size: 20rpx;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.forecast-center {
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+}
+
+.forecast-icon {
+  font-size: 40rpx;
+}
+
+.forecast-text {
+  font-size: 26rpx;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.forecast-right {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.forecast-temp-high {
+  font-size: 28rpx;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.forecast-temp-low {
+  font-size: 26rpx;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* ====== 励志卡片 ====== */
+.quote-card {
+  text-align: center;
+}
+
+.quote-content {
+  padding: 10rpx 0;
+  position: relative;
+}
+
+.quote-mark-left,
+.quote-mark-right {
+  font-size: 60rpx;
+  color: rgba(255, 255, 255, 0.3);
+  line-height: 0.5;
+  display: block;
+}
+
+.quote-mark-left {
+  text-align: left;
+}
+
+.quote-mark-right {
+  text-align: right;
+}
+
+.quote-text {
+  display: block;
+  font-size: 32rpx;
+  color: rgba(255, 255, 255, 0.95);
+  line-height: 1.7;
+  padding: 10rpx 20rpx;
+  font-weight: 400;
+}
+
+/* ====== 底部 ====== */
+.bottom-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20rpx 0 40rpx;
+  gap: 10rpx;
+}
+
+.update-time {
+  font-size: 22rpx;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.hint-text {
+  font-size: 22rpx;
+  color: rgba(255, 255, 255, 0.4);
+}

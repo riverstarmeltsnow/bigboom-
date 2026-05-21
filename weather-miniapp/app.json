@@ -1,0 +1,23 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/setting/setting"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#4facfe",
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "天气与提醒",
+    "backgroundColor": "#4facfe",
+    "backgroundTextStyle": "light"
+  },
+  "requiredPrivateInfos": [
+    "getLocation"
+  ],
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于获取当地天气"
+    }
+  },
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

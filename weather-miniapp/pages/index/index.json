@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "天气与提醒",
+  "enablePullDownRefresh": true,
+  "backgroundColor": "#4facfe",
+  "usingComponents": {}
+}

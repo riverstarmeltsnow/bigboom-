@@ -1,0 +1,115 @@
+<view class="page" style="background: {{bgGradient || '#4facfe'}};">
+
+  <!-- 加载中 -->
+  <view class="loading-mask" wx:if="{{loading}}">
+    <view class="loading-spinner"></view>
+    <text class="loading-text">正在获取天气信息...</text>
+  </view>
+
+  <!-- 错误提示 -->
+  <view class="error-box" wx:elif="{{errorMsg}}">
+    <text class="error-icon">⚠️</text>
+    <text class="error-text">{{errorMsg}}</text>
+    <view class="retry-btn" bindtap="onRefresh">重试</view>
+  </view>
+
+  <!-- 主内容 -->
+  <view class="content" wx:else>
+
+    <!-- ====== 顶部栏 ====== -->
+    <view class="header">
+      <view class="header-left">
+        <text class="location-icon">📍</text>
+        <text class="city-name">{{cityName}}</text>
+      </view>
+      <view class="header-right" bindtap="goSetting">
+        <text class="setting-icon">⚙️</text>
+      </view>
+    </view>
+
+    <!-- 刷新提示 -->
+    <view class="refresh-toast" wx:if="{{refreshed}}">✓ 已刷新</view>
+
+    <!-- ====== 实时天气卡片 ====== -->
+    <view class="card weather-card">
+      <view class="weather-main">
+        <text class="weather-icon-large">{{weatherIcon}}</text>
+        <view class="weather-temp-group">
+          <text class="weather-temp">{{weather.temp || '--'}}°</text>
+          <text class="weather-desc">{{weather.text || ''}}</text>
+        </view>
+      </view>
+      <view class="weather-detail">
+        <view class="detail-item">
+          <text class="detail-label">体感</text>
+          <text class="detail-value">{{weather.feelsLike || '--'}}°</text>
+        </view>
+        <view class="detail-item">
+          <text class="detail-label">湿度</text>
+          <text class="detail-value">{{weather.humidity || '--'}}%</text>
+        </view>
+        <view class="detail-item">
+          <text class="detail-label">风力</text>
+          <text class="detail-value">{{weather.windDir || '--'}} {{weather.windSpeed || ''}}级</text>
+        </view>
+        <view class="detail-item">
+          <text class="detail-label">气压</text>
+          <text class="detail-value">{{weather.pressure || '--'}}hPa</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- ====== 温馨提醒卡片 ====== -->
+    <view class="card reminder-card" wx:if="{{reminder}}">
+      <view class="card-header">
+        <text class="card-icon">💡</text>
+        <text class="card-title">温馨提醒</text>
+      </view>
+      <text class="reminder-content">{{reminder}}</text>
+    </view>
+
+    <!-- ====== 天气预报卡片 ====== -->
+    <view class="card forecast-card">
+      <view class="card-header">
+        <text class="card-icon">📅</text>
+        <text class="card-title">未来三天</text>
+      </view>
+      <view class="forecast-list">
+        <view class="forecast-item" wx:for="{{forecast}}" wx:key="fxDate">
+          <view class="forecast-left">
+            <text class="forecast-day">{{item.dayLabel}}</text>
+            <text class="forecast-date">{{item.dateText}}</text>
+          </view>
+          <view class="forecast-center">
+            <text class="forecast-icon">{{item.iconEmoji}}</text>
+            <text class="forecast-text">{{item.textDay}}</text>
+          </view>
+          <view class="forecast-right">
+            <text class="forecast-temp-high">{{item.tempMax}}°</text>
+            <text class="forecast-temp-low">{{item.tempMin}}°</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- ====== 每日励志卡片 ====== -->
+    <view class="card quote-card" wx:if="{{quote}}">
+      <view class="card-header">
+        <text class="card-icon">💪</text>
+        <text class="card-title">每日一句</text>
+      </view>
+      <view class="quote-content">
+        <text class="quote-mark-left">"</text>
+        <text class="quote-text">{{quote}}</text>
+        <text class="quote-mark-right">"</text>
+      </view>
+    </view>
+
+    <!-- 底部 -->
+    <view class="bottom-bar">
+      <text class="update-time" wx:if="{{weather.obsTime}}">更新于 {{weather.obsTime.slice(11, 16)}}</text>
+      <text class="hint-text">下拉刷新</text>
+    </view>
+
+  </view>
+</view>

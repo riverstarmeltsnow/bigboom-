@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>留言板 - 帖子列表</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header class="page-header">
+            <h1>📋 留言板</h1>
+            <a href="{{ url_for('new_post') }}" class="btn btn-primary">+ 发新帖</a>
+        </header>
+
+        <!-- 提示消息 -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="flash-messages">
+            {% for category, msg in messages %}
+            <div class="flash {{ category }}">{{ msg }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        <!-- 帖子列表 -->
+        {% if posts %}
+        <ul class="post-list">
+            {% for post in posts %}
+            <li class="post-item">
+                <a href="{{ url_for('post_detail', post_id=post.id) }}" class="post-title">
+                    {{ post.title }}
+                </a>
+                <div class="post-meta">
+                    <span class="author">{{ post.nickname }}</span>
+                    <span class="time">{{ post.created_at[:16] }}</span>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <div class="empty-state">
+            <p>还没有帖子，来发第一帖吧！</p>
+            <a href="{{ url_for('new_post') }}" class="btn btn-primary">发帖</a>
+        </div>
+        {% endif %}
+
+        <!-- 分页 -->
+        {% if total_pages > 1 %}
+        <div class="pagination">
+            {% if page > 1 %}
+            <a href="?page={{ page - 1 }}" class="btn">上一页</a>
+            {% endif %}
+            <span class="page-info">{{ page }} / {{ total_pages }}</span>
+            {% if page < total_pages %}
+            <a href="?page={{ page + 1 }}" class="btn">下一页</a>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ post.title }} - 留言板</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <a href="{{ url_for('index') }}" class="back-link">← 返回列表</a>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="flash-messages">
+            {% for category, msg in messages %}
+            <div class="flash {{ category }}">{{ msg }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        <!-- 帖子正文 -->
+        <article class="post-detail">
+            <h1 class="post-detail-title">{{ post.title }}</h1>
+            <div class="post-meta">
+                <span class="author">{{ post.nickname }}</span>
+                <span class="time">{{ post.created_at[:16] }}</span>
+            </div>
+            <div class="post-content">{{ post.content | replace('\n', '<br>') | safe }}</div>
+        </article>
+
+        <!-- 回复区 -->
+        <section class="replies-section">
+            <h2>回复（{{ replies | length }}）</h2>
+
+            {% if replies %}
+            <ul class="reply-list">
+                {% for reply in replies %}
+                <li class="reply-item">
+                    <div class="reply-meta">
+                        <strong>{{ reply.nickname }}</strong>
+                        <span class="time">{{ reply.created_at[:16] }}</span>
+                    </div>
+                    <div class="reply-content">{{ reply.content | replace('\n', '<br>') | safe }}</div>
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p class="no-reply">暂无回复，来抢沙发！</p>
+            {% endif %}
+        </section>
+
+        <!-- 回复表单 -->
+        <section class="reply-form">
+            <h3>发表回复</h3>
+            <form action="{{ url_for('reply', post_id=post.id) }}" method="POST">
+                <div class="form-group">
+                    <input type="text" name="nickname" placeholder="你的昵称（留空=匿名）" maxlength="50">
+                </div>
+                <div class="form-group">
+                    <textarea name="content" rows="4" placeholder="写下你的回复..." required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">提交回复</button>
+            </form>
+        </section>
+    </div>
+</body>
+</html>

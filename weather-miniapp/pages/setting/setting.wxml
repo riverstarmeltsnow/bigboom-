@@ -1,0 +1,96 @@
+<view class="page">
+  <!-- 城市选择 -->
+  <view class="section">
+    <view class="section-title">城市选择</view>
+    <view class="search-box">
+      <input
+        class="search-input"
+        placeholder="搜索城市（如：北京、上海）"
+        value="{{citySearch}}"
+        bindinput="onCityInput"
+        bindconfirm="searchCity"
+        confirm-type="search"
+      />
+      <view class="search-clear" bindtap="clearSearch" wx:if="{{citySearch}}">✕</view>
+    </view>
+    <view class="search-results" wx:if="{{showResults && searchResults.length > 0}}">
+      <view
+        class="search-item"
+        wx:for="{{searchResults}}"
+        wx:key="id"
+        data-name="{{item.name}}"
+        data-lat="{{item.lat}}"
+        data-lon="{{item.lon}}"
+        data-adm1="{{item.adm1}}"
+        bindtap="selectCity"
+      >
+        <text class="city-name">{{item.name}}</text>
+        <text class="city-adm">{{item.adm1}} {{item.adm2}}</text>
+      </view>
+    </view>
+    <view class="search-empty" wx:elif="{{showResults && searchResults.length === 0 && citySearch}}">
+      未找到城市
+    </view>
+  </view>
+
+  <!-- 功能开关 -->
+  <view class="section">
+    <view class="section-title">功能设置</view>
+
+    <view class="switch-item">
+      <view class="switch-label">
+        <text class="switch-icon">📍</text>
+        <view>
+          <text class="switch-name">自动定位</text>
+          <text class="switch-desc">开启后自动获取当前位置</text>
+        </view>
+      </view>
+      <switch
+        checked="{{settings.autoLocation}}"
+        bindchange="toggleAutoLocation"
+        color="#4facfe"
+      />
+    </view>
+
+    <view class="switch-item">
+      <view class="switch-label">
+        <text class="switch-icon">💡</text>
+        <view>
+          <text class="switch-name">天气提醒</text>
+          <text class="switch-desc">根据天气状况给出出行建议</text>
+        </view>
+      </view>
+      <switch
+        checked="{{settings.reminderEnabled}}"
+        bindchange="toggleReminder"
+        color="#4facfe"
+      />
+    </view>
+
+    <view class="switch-item">
+      <view class="switch-label">
+        <text class="switch-icon">💪</text>
+        <view>
+          <text class="switch-name">每日励志</text>
+          <text class="switch-desc">每天一条正能量句子</text>
+        </view>
+      </view>
+      <switch
+        checked="{{settings.quoteEnabled}}"
+        bindchange="toggleQuote"
+        color="#4facfe"
+      />
+    </view>
+  </view>
+
+  <!-- 其他 -->
+  <view class="section">
+    <view class="section-title">其他</view>
+    <view class="btn-item" bindtap="clearCache">
+      <text>清除缓存</text>
+      <text class="btn-arrow">›</text>
+    </view>
+  </view>
+
+  <view class="footer">Weather Reminder v1.0</view>
+</view>

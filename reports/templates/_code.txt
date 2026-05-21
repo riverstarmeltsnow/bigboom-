@@ -1,0 +1,119 @@
+#include <stdio.h>
+
+// 平方乘方法 a^m mod n (学号尾号65: LRFun_65)
+long int LRFun_65(long int a, long int m, int key[], int klen)
+{
+    printf("平方乘\n");
+    long int s = 1;
+    for (int i = klen - 1; i >= 0; i--)
+    {
+        s = (s * s) % m;
+        if (key[i] == 1)
+        {
+            s = (s * a) % m;
+        }
+        printf("i=%d, s=%ld\n", i, s);
+    }
+    return s;
+}
+
+// 模重复平方法 a^m mod n (学号尾号65: RLFun_65)
+long int RLFun_65(long int a, long int m, int key[], int klen)
+{
+    printf("模重复平方\n");
+    long int s = 1;
+    for (int i = 0; i < klen; i++)
+    {
+        if (key[i] == 1)
+        {
+            s = (s * a) % m;
+        }
+        a = (a * a) % m;
+        printf("i=%d, s=%ld\n", i, s);
+    }
+    return s;
+}
+
+// 扩展欧几里得算法
+long int Exgcd(long int a, long int b, long int &x, long int &y)
+{
+    if (b == 0)
+    {
+        x = 1;
+        y = 0;
+        return a;
+    }
+    long int r = Exgcd(b, a % b, x, y);
+    long int temp = x;
+    x = y;
+    y = temp - a / b * y;
+    return r;
+}
+
+// 求模逆元
+long int mod_reverse(long int a, long int n)
+{
+    long int r, x, y;
+    r = Exgcd(a, n, x, y);
+    if (r == 1)
+        return (x % n + n) % n;
+    else
+        return -1;
+}
+
+// 十进制转二进制数组
+int dec2bin(long int n, int key[])
+{
+    int klen = 0;
+    while (n > 0)
+    {
+        key[klen++] = n % 2;
+        n = n / 2;
+    }
+    return klen;
+}
+
+int main()
+{
+    long int e = 7, p = 13, q = 17;
+    long int n = p * q;
+    long int phi = (p - 1) * (q - 1);
+    long int d = mod_reverse(e, phi);
+
+    printf("RSA算法实现\n");
+    printf("学号: 2024121065\n");
+    printf("p=%ld, q=%ld, n=%ld, φ(n)=%ld\n", p, q, n, phi);
+    printf("公钥e=%ld, 私钥d=%ld\n\n", e, d);
+
+    // 第一组: 固定测试 m=22
+    long int m1 = 22;
+    int key1[32], klen1 = dec2bin(m1, key1);
+    printf("=== 第一组测试: m=%ld ===\n", m1);
+    printf("m的二进制: ");
+    for (int i = klen1 - 1; i >= 0; i--) printf("%d", key1[i]);
+    printf("\n\n");
+
+    long int c1 = LRFun_65(m1, n, key1, klen1);
+    printf("密文c = %ld\n", c1);
+
+    int key_c1[32], klen_c1 = dec2bin(c1, key_c1);
+    long int dec1 = RLFun_65(c1, n, key_c1, klen_c1);
+    printf("解密m' = %ld\n\n", dec1);
+
+    // 第二组: 学号尾号5 -> m=15
+    long int m2 = 15;
+    int key2[32], klen2 = dec2bin(m2, key2);
+    printf("=== 第二组测试: m=%ld (学号尾号5) ===\n", m2);
+    printf("m的二进制: ");
+    for (int i = klen2 - 1; i >= 0; i--) printf("%d", key2[i]);
+    printf("\n\n");
+
+    long int c2 = LRFun_65(m2, n, key2, klen2);
+    printf("密文c = %ld\n", c2);
+
+    int key_c2[32], klen_c2 = dec2bin(c2, key_c2);
+    long int dec2 = RLFun_65(c2, n, key_c2, klen_c2);
+    printf("解密m' = %ld\n", dec2);
+
+    return 0;
+}
